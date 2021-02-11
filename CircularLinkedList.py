@@ -10,20 +10,41 @@ class CircularLinkedList:
                 node = node.next
             node.next = self.head
 
-    def traverse(self, starting_point=None):
+    def __repr__(self, starting_point=None):
         if starting_point is None:
             starting_point = self.head
         node = starting_point
-        while node is not None and (node.next != starting_point):
-            yield node
-            node = node.next
-        yield node
-        yield starting_point
+        nodes = [starting_point]
 
-    def __repr__(self, starting_point=None):
-        nodes = []
-        for node in self.traverse(starting_point):
-            nodes.append(str(node))
+        while node is not None and (node.next != starting_point):
+            node = node.next
+            nodes.append(node)
+
+        node = node.next
+        nodes.append(node)
+
+        nodes = map(str, nodes)
+        return " -> ".join(nodes)
+
+    def major_scale(self, starting_point=None):
+        if starting_point is None:
+            starting_point = self.head
+        node = starting_point
+        nodes = [starting_point]
+
+        major_interval = ["W", "W", "H", "W", "W", "W", "H"]
+
+        for interval in major_interval:
+            if interval == "W":
+                node = node.next.next
+                nodes.append(node)
+            elif interval == "H":
+                node = node.next
+                nodes.append(node)
+            else:
+                print("Error")
+
+        nodes = map(str, nodes)
         return " -> ".join(nodes)
 
 
