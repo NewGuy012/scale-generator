@@ -106,8 +106,13 @@ class CircularLinkedList:
 
         chord_construction = {
             "triad": [x - 1 for x in [1, 3, 5]],
+            "sus2": [x - 1 for x in [1, 2, 5]],
+            "sus4": [x - 1 for x in [1, 4, 5]],
+            "6": [x - 1 for x in [1, 3, 5, 6]],
             "7": [x - 1 for x in [1, 3, 5, 7]],
             "9": [x - 1 for x in [1, 3, 5, 7, 9]],
+            "11": [x - 1 for x in [1, 3, 5, 7, 9, 11]],
+            "13": [x - 1 for x in [1, 3, 5, 7, 9, 11, 13]]
         }
 
         nodes = [nodes[i] for i in chord_construction.get(chord_type)]
