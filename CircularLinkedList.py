@@ -29,13 +29,11 @@ class CircularLinkedList:
         nodes.append(node)
 
         nodes = map(str, nodes)
-        return " -> ".join(nodes)
+        return "Chromatic scale: " + " -> ".join(nodes) + "\n"
 
     def generate_scale(self, starting_note=None, scale_type=None):
-        if starting_note is None:
-            starting_node = self.head
-        else:
-            starting_node = self.node_dict[starting_note]
+        starting_node = self.node_dict[starting_note]
+        self.head = starting_node
 
         node = starting_node
         nodes = [starting_node]
@@ -47,26 +45,23 @@ class CircularLinkedList:
             "fourths": ["WWH"] * 12,
             "fifths": ["WWWH"] * 12,
             "relative minor": ["WWWWH"],
-            "major chord": ["WW", "WH"],
-            "minor chord": ["WH", "WW"]
         }
         scale_interval = scale_interval.get(scale_type)
 
         node_interval = {
             "H": 1,
-            "W": 2,
-            "WH": 3,
-            "WW": 4,
-            "WWH": 5,
-            "WWWH": 7,
-            "WWWWH": 9,
+            "W": 2
         }
 
         for interval in scale_interval:
-            num_steps = node_interval.get(interval)
+            num_steps = 0
+
+            for c in interval:
+                num_steps += node_interval.get(c)
 
             for i in range(0, num_steps):
                 node = node.next
+
             nodes.append(node)
 
         nodes = map(str, nodes)
@@ -74,6 +69,55 @@ class CircularLinkedList:
         output_str = starting_note \
             + " " \
             + scale_type \
+            + " scale: " \
+            + nodes_str
+        print(output_str)
+
+    def generate_chord(self, starting_note=None, chord_scale=None, chord_type=None):
+        starting_node = self.node_dict[starting_note]
+        self.head = starting_node
+        node = starting_node
+        nodes = [starting_node]
+
+        scale_interval = {
+            "major": ["W", "W", "H", "W", "W", "W", "H"],
+            "minor": ["W", "H", "W", "W", "H", "W", "W"],
+            "dominant": ["W", "W", "H", "W", "W", "H"],
+            "diminished": ["W", "H", "H", "W"],
+            "augmented": ["W", "W", "W", "W"],
+        }
+        scale_interval = scale_interval.get(chord_scale)
+
+        node_interval = {
+            "H": 1,
+            "W": 2
+        }
+
+        for interval in scale_interval:
+            num_steps = 0
+
+            for c in interval:
+                num_steps += node_interval.get(c)
+
+            for i in range(0, num_steps):
+                node = node.next
+
+            nodes.append(node)
+
+        chord_construction = {
+            "triad": [x - 1 for x in [1, 3, 5]],
+            "7": [x - 1 for x in [1, 3, 5, 7]],
+            "9": [x - 1 for x in [1, 3, 5, 7, 9]],
+        }
+
+        nodes = [nodes[i] for i in chord_construction.get(chord_type)]
+        nodes = map(str, nodes)
+        nodes_str = " -> ".join(nodes)
+        output_str = starting_note \
+            + " " \
+            + chord_scale \
+            + " " \
+            + chord_type \
             + ": " \
             + nodes_str
         print(output_str)
