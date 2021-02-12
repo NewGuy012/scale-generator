@@ -15,8 +15,10 @@ chromatic_scale = CLL(("C",
 print(chromatic_scale)
 
 chromatic_scale.generate_scale("C", "major")
+chromatic_scale.generate_scale("C", "relative minor")
 chromatic_scale.generate_scale("A", "minor")
 chromatic_scale.generate_scale("C", "pentatonic")
 chromatic_scale.generate_scale("C", "fifths")
 chromatic_scale.generate_scale("C", "fourths")
-chromatic_scale.generate_scale("C", "relative minor")
+chromatic_scale.generate_scale("C", "major chord")
+chromatic_scale.generate_scale("C", "minor chord")

@@ -31,11 +31,11 @@ class CircularLinkedList:
         nodes = map(str, nodes)
         return " -> ".join(nodes)
 
-    def generate_scale(self, starting_node=None, scale_type=None):
-        if starting_node is None:
+    def generate_scale(self, starting_note=None, scale_type=None):
+        if starting_note is None:
             starting_node = self.head
         else:
-            starting_node = self.node_dict[starting_node]
+            starting_node = self.node_dict[starting_note]
 
         node = starting_node
         nodes = [starting_node]
@@ -46,7 +46,9 @@ class CircularLinkedList:
             "pentatonic": ["W", "W", "WH", "W", "WH"],
             "fourths": ["WWH"] * 12,
             "fifths": ["WWWH"] * 12,
-            "relative minor": ["WWWWH"]
+            "relative minor": ["WWWWH"],
+            "major chord": ["WW", "WH"],
+            "minor chord": ["WH", "WW"]
         }
         scale_interval = scale_interval.get(scale_type)
 
@@ -54,6 +56,7 @@ class CircularLinkedList:
             "H": 1,
             "W": 2,
             "WH": 3,
+            "WW": 4,
             "WWH": 5,
             "WWWH": 7,
             "WWWWH": 9,
@@ -67,7 +70,13 @@ class CircularLinkedList:
             nodes.append(node)
 
         nodes = map(str, nodes)
-        print(" -> ".join(nodes))
+        nodes_str = " -> ".join(nodes)
+        output_str = starting_note \
+            + " " \
+            + scale_type \
+            + ": " \
+            + nodes_str
+        print(output_str)
 
 
 class Node:
