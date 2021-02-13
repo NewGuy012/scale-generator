@@ -41,6 +41,15 @@ class CircularLinkedList:
         scale_interval = {
             "major": ["W", "W", "H", "W", "W", "W", "H"],
             "minor": ["W", "H", "W", "W", "H", "W", "W"],
+            # all the modal scales
+            "ionian": ["W", "W", "H", "W", "W", "W", "H"],
+            "dorian": ["W", "H", "W", "W", "W", "H", "W"],
+            "phrygian": ["H", "W", "W", "W", "H", "W", "W"],
+            "lydian": ["W", "W", "W", "H", "W", "W", "H"],
+            "mixolydian": ["W", "W", "H", "W", "W", "H", "W"],
+            "aeolian": ["W", "H", "W", "W", "H", "W", "W"],
+            "locrian": ["H", "W", "W", "H", "W", "W", "W"],
+            # note, ionian is major, aeolian is minor
             "pentatonic": ["W", "W", "WH", "W", "WH"],
             "fourths": ["WWH"] * 12,
             "fifths": ["WWWH"] * 12,
@@ -68,7 +77,7 @@ class CircularLinkedList:
         nodes_str = " -> ".join(nodes)
         output_str = starting_note \
             + " " \
-            + scale_type \
+            + scale_type.title() \
             + " scale: " \
             + nodes_str
         print(output_str)
