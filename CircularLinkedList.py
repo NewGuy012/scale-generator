@@ -81,6 +81,7 @@ class CircularLinkedList:
             + " scale: " \
             + nodes_str
         print(output_str)
+        return output_str
 
     def generate_chord(self, starting_note=None, chord_scale=None, chord_type=None):
         starting_node = self.node_dict[starting_note]
