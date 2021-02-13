@@ -4,6 +4,12 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
 
+# basic plan is to have a scale generator that looks something like this --
+
+# scale generator title banner
+# input Key (TextInput) and also a scale type select dropdown
+# submit button
+# extra text grid on the top after button is pressed
 class MyGridLayout(GridLayout):
   def __init__(self, **kwargs):
     # call grid layout in the constructor
