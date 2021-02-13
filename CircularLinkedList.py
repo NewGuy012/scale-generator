@@ -129,7 +129,7 @@ class CircularLinkedList:
         nodes_str = " -> ".join(nodes)
         output_str = starting_note \
             + " " \
-            + chord_scale \
+            + chord_scale.title() \
             + " " \
             + chord_type \
             + ": " \
