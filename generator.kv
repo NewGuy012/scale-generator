@@ -1,0 +1,41 @@
+<GeneratorGrid>
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text: "Let's generate a scale!"
+            font_size: 50
+
+        GridLayout:
+            cols: 2
+            rows: 1
+
+            Label:
+                font_size: 40
+                text: "Type a key -->"
+
+            TextInput:
+                id: key_input
+                text: ""
+                halign: "center"
+                font_size: 40
+
+                on_text: root.key_typed(key_input.text)
+              
+        Spinner:
+            id: scale_type
+            text: "Choose Scale"
+            values: ["Major", "Minor", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian", "Pentatonic", "Fourths", "Fifths", "Relative Minor"]
+
+            on_text: root.scale_clicked(scale_type.text)
+        
+        GridLayout:
+            cols: 1
+            rows: 4
+
+            Button:
+                size_hint: (.2, .2)
+                font_size: 40
+                text: "Generate!"
+
