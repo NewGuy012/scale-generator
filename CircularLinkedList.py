@@ -32,6 +32,9 @@ class CircularLinkedList:
         return "Chromatic scale: " + " -> ".join(nodes) + "\n"
 
     def generate_scale(self, starting_note=None, scale_type=None):
+        starting_note = [note for note in self.node_dict.keys()
+                         if starting_note in note].pop(0)
+
         starting_node = self.node_dict[starting_note]
         self.head = starting_node
 
@@ -84,6 +87,9 @@ class CircularLinkedList:
         return output_str
 
     def generate_chord(self, starting_note=None, chord_scale=None, chord_type=None):
+        starting_note = [note for note in self.node_dict.keys()
+                         if starting_note in note].pop(0)
+
         starting_node = self.node_dict[starting_note]
         self.head = starting_node
         node = starting_node
