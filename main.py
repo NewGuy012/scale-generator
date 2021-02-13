@@ -26,7 +26,6 @@ class GeneratorGrid(Widget):
   def key_typed(self, value):
     valid_keys = set(["A", "B", "C", "D", "E", "F", "G", "A#", "B#", "C#", "D#", "E#", "F#", "G#", "Ab", "Bb", "Cb", "Db", "Eb", "Fb", "Gb"])
 
-    self.ids.hint_text.text = f"Invalid hits: {self.invalid_count}" 
     if value.upper() in valid_keys:
       self.invalid_count = 0
       self.key = value
@@ -37,6 +36,8 @@ class GeneratorGrid(Widget):
         self.ids.user_input.text = "WHAT IS WRONG WITH YOU!? \nDO YOU NO SPEAK ENGLISH??"
       else:
         self.ids.user_input.text = 'Please type a valid key to start scale!'
+    
+    self.ids.hint_text.text = f"Invalid hits: {self.invalid_count}" 
 
   def scale_clicked(self, value):
     error_message = set(["We cannot proceed until you type a valid key -_-;;", 'Please type a valid key to start scale!', "WHAT IS WRONG WITH YOU!? \nDO YOU NO SPEAK ENGLISH??"])
