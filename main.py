@@ -27,7 +27,7 @@ class GeneratorGrid(Widget):
 
     if value.title() in valid_keys:
       self.key = value
-      self.ids.user_input.text = value
+      self.ids.user_input.text = value.title()
     else:
       self.ids.user_input.text = 'Please type a valid key to start scale!'
     
@@ -55,7 +55,7 @@ class GeneratorGrid(Widget):
       res = prior + " " + value
     
 
-    self.ids.user_input.text = res
+    self.ids.user_input.text = res.title()
   
   def generate(self):
     if self.key == "" or self.scale == "":
