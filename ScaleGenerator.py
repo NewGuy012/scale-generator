@@ -17,7 +17,6 @@ print(chromatic_scale)
 print("\n")
 
 print("Scales in Key of C")
-chromatic_scale.generate_scale("Bb", "major")
 chromatic_scale.generate_scale("C", "major")
 chromatic_scale.generate_scale("C", "minor")
 chromatic_scale.generate_scale("C", "relative minor")
@@ -32,6 +31,10 @@ chromatic_scale.generate_scale("A", "minor")
 chromatic_scale.generate_scale("C", "pentatonic")
 chromatic_scale.generate_scale("C", "fifths")
 chromatic_scale.generate_scale("C", "fourths")
+print("\n")
+
+chromatic_scale.generate_scale("E", "major")
+chromatic_scale.generate_scale("Eb", "major")
 print("\n")
 
 print("Chords in Key of C")
