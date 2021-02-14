@@ -10,7 +10,6 @@
             background_color: (206/255, 196/255, 245/255, 1)
             text_size: self.width, None
             size_hint: 1, None
-            height: self.texture_size[1]
             canvas.before:
                 Color:
                     rgba: self.background_color
@@ -22,9 +21,6 @@
             id: user_input
             text: ""
             font_size: 20
-            text_size: self.width, None
-            size_hint: 1, None
-            height: self.texture_size[1]
 
 
         GridLayout:
