@@ -3,11 +3,24 @@
         orientation: "vertical"
         size: root.width, root.height
 
+
+        Label:
+            id: user_input
+            text: ""
+            font_size: 30
+            background_color: (177/255, 172/255, 178/255, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
         Label:
             id: header
-            text: "Let's generate a scale!"
+            text: ""
             font_size: 30
-            background_color: (206/255, 196/255, 245/255, 1)
+            background_color: (153/255, 199/255, 165/255, 1)
             text_size: self.width, None
             size_hint: 1, None
             canvas.before:
@@ -17,12 +30,6 @@
                     size: self.size
                     pos: self.pos
 
-        Label:
-            id: user_input
-            text: ""
-            font_size: 20
-
-
         GridLayout:
             cols: 3
             rows: 1
@@ -30,7 +37,7 @@
             Label:
                 font_size: 30
                 text: "Type a key -->"
-                background_color: (187/255, 194/255, 167/255, 1)
+                background_color: (177/255, 172/255, 178/255, 1)
                 canvas.before:
                     Color:
                         rgba: self.background_color
@@ -49,7 +56,7 @@
             Spinner:
                 id: scale_type
                 font_size: 30
-                background_color: (187/255, 194/255, 167/255, 1)
+                background_color: (177/255, 172/255, 178/255, 1)
                 background_normal: ""
                 text: "Choose Scale"
                 values: ["Major", "Minor", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian", "Pentatonic", "Fourths", "Fifths", "Relative Minor"]
@@ -62,7 +69,7 @@
             text: "Generate!"
             pos_hint: {"center_x": 0.5}
             size_hint: (1, .9)
-            background_color: (206/255, 196/255, 245/255, 1)
+            background_color: (153/255, 199/255, 165/255, 1)
             background_normal: ""
 
             on_press: root.generate()
