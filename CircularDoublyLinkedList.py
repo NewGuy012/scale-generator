@@ -41,8 +41,6 @@ class CircularDoublyLinkedList:
             node = node.next
 
         nodes.append(node.data)
-        node = node.next
-        nodes.append(node.data)
 
         return " -> ".join(nodes)
 
@@ -60,23 +58,25 @@ class MusicalScale:
     scale_intervals = {
         "major": ["W", "W", "H", "W", "W", "W", "H"],
         "minor": ["W", "H", "W", "W", "H", "W", "W"],
-        "dominant": ["W", "W", "H", "W", "W", "H"],
-        "diminished": ["W", "H", "H", "W"],
-        "augmented": ["W", "W", "W", "W"],
 
+        "dominant":   ["W", "W", "H", "W", "W", "H"],
+        "diminished": ["W", "H", "H", "W"],
+        "augmented":  ["W", "W", "W", "W"],
         "pentatonic": ["W", "W", "WH", "W", "WH"],
+
         "fourths": ["WWH"] * 12,
-        "fifths": ["WWWH"] * 12,
-        "relative minor": ["WWWWH"],
+        "fifths":  ["WWWH"] * 12,
+
+        "relative minor": [],
 
         # Note: ionian is major, aeolian is minor
-        "ionian": ["W", "W", "H", "W", "W", "W", "H"],
-        "dorian": ["W", "H", "W", "W", "W", "H", "W"],
-        "phrygian": ["H", "W", "W", "W", "H", "W", "W"],
-        "lydian": ["W", "W", "W", "H", "W", "W", "H"],
+        "ionian":     ["W", "W", "H", "W", "W", "W", "H"],
+        "dorian":     ["W", "H", "W", "W", "W", "H", "W"],
+        "phrygian":   ["H", "W", "W", "W", "H", "W", "W"],
+        "lydian":     ["W", "W", "W", "H", "W", "W", "H"],
         "mixolydian": ["W", "W", "H", "W", "W", "H", "W"],
-        "aeolian": ["W", "H", "W", "W", "H", "W", "W"],
-        "locrian": ["H", "W", "W", "H", "W", "W", "W"],
+        "aeolian":    ["W", "H", "W", "W", "H", "W", "W"],
+        "locrian":    ["H", "W", "W", "H", "W", "W", "W"],
     }
 
     chord_intervals = {
@@ -117,33 +117,39 @@ class MusicalScale:
     def generate_scale(self, scale_interval):
         interval_list = self.scale_intervals.get(scale_interval)
         interval_list = self.letter2num(interval_list)
+        # interval_list.pop()
 
-        starting_node = self.scale.head
-        new_nodes = [starting_node.data]
-        node = starting_node
+        node = self.scale.head
+        new_notes = [node.data]
 
         for num_steps in interval_list:
             for i in range(0, num_steps):
                 node = node.next
 
-            new_nodes.append(node.data)
+            new_notes.append(node.data)
 
-        return f'{self.starting_note}: {new_nodes}'
+        new_nodes = CircularDoublyLinkedList(new_notes, self.starting_note)
+
+        if scale_interval == "relative minor":
+            return new_nodes.head.prev.prev
+        else:
+            return new_nodes
 
     def generate_chord(self, scale_interval, chord_interval):
         scale = self.generate_scale(scale_interval)
 
         interval_list = self.chord_intervals.get(chord_interval)
-        interval_list = [x - 1 for x in interval_list]
+        interval_list = [t - s for
+                         s, t in zip(interval_list, interval_list[1:])]
 
-        chord = [scale[i] for i in interval_list]
-        return f'{self.starting_note}: {chord}'
+        node = self.scale.head
+        new_notes = [node.data]
 
+        for num_steps in interval_list:
+            for i in range(0, num_steps):
+                node = node.next
 
-C_chromatic_scale = MusicalScale.chromatic_scale("C")
+            new_notes.append(node.data)
 
-C_major_scale = C_chromatic_scale.generate_scale("major")
-C_major_triad = C_chromatic_scale.generate_chord("major", "triad")
-
-print(C_major_scale)
-print(C_major_triad)
+        new_nodes = CircularDoublyLinkedList(new_notes, self.starting_note)
+        return new_nodes
