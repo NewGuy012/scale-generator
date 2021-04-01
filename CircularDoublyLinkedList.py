@@ -67,7 +67,7 @@ class MusicalScale:
         "fourths": ["WWH"] * 12,
         "fifths":  ["WWWH"] * 12,
 
-        "relative minor": [],
+        "relative minor": ["W", "W", "H", "W", "W", "W", "H"],
 
         # Note: ionian is major, aeolian is minor
         "ionian":     ["W", "W", "H", "W", "W", "W", "H"],
@@ -117,7 +117,6 @@ class MusicalScale:
     def generate_scale(self, scale_interval):
         interval_list = self.scale_intervals.get(scale_interval)
         interval_list = self.letter2num(interval_list)
-        # interval_list.pop()
 
         node = self.scale.head
         new_notes = [node.data]
@@ -131,7 +130,10 @@ class MusicalScale:
         new_nodes = CircularDoublyLinkedList(new_notes, self.starting_note)
 
         if scale_interval == "relative minor":
-            return new_nodes.head.prev.prev
+            relative_minor = new_nodes.head.prev.prev.prev
+            relative_minor.data = relative_minor.data + "m"
+
+            return relative_minor
         else:
             return new_nodes
 
@@ -142,7 +144,7 @@ class MusicalScale:
         interval_list = [t - s for
                          s, t in zip(interval_list, interval_list[1:])]
 
-        node = self.scale.head
+        node = scale.head
         new_notes = [node.data]
 
         for num_steps in interval_list:
