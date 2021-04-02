@@ -34,21 +34,18 @@ class CircularDoublyLinkedList:
 
     def __repr__(self):
         node = self.head
-        nodes = []
+        nodes = [node.data]
 
         while node.next != self.head:
-            nodes.append(node.data)
             node = node.next
-
-        nodes.append(node.data)
+            nodes.append(node.data)
 
         return " -> ".join(nodes)
 
 
 class MusicalScale:
-    chromatic_notes = ["C", "C#/Db",     "D", "D#/Eb",
-                       "E",     "F", "F#/Gb",     "G",
-                       "G#/Ab", "A", "A#/Bb",     "B"]
+    chromatic_notes = ["C", "(C#/Db)", "D", "(D#/Eb)", "E", "F",
+                       "(F#/Gb)", "G", "(G#/Ab)", "A", "(A#/Bb)", "B"]
 
     step_intervals = {
         "H": 1,
@@ -56,12 +53,11 @@ class MusicalScale:
     }
 
     scale_intervals = {
-        "major": ["W", "W", "H", "W", "W", "W", "H"],
-        "minor": ["W", "H", "W", "W", "H", "W", "W"],
-
-        "dominant":   ["W", "W", "H", "W", "W", "H"],
-        "diminished": ["W", "H", "H", "W"],
-        "augmented":  ["W", "W", "W", "W"],
+        "major":      ["W", "W", "H", "W", "W", "W", "H"],
+        "minor":      ["W", "H", "W", "W", "H", "W", "W"],
+        "dominant":   ["W", "W", "H", "W", "W", "H", "W"],
+        "diminished": ["W", "H", "W", "H", "W", "W", "W"],
+        "augmented":  ["W", "W", "W", "W", "H", "W", "H"],
         "pentatonic": ["W", "W", "WH", "W", "WH"],
 
         "fourths": ["WWH"] * 12,
@@ -88,6 +84,7 @@ class MusicalScale:
         "9th": [1, 3, 5, 7, 9],
         "11th": [1, 3, 5, 7, 9, 11],
         "13th": [1, 3, 5, 7, 9, 11, 13],
+        "diatonic": list(range(1, 8)),
     }
 
     def __init__(self, notes, starting_note):
@@ -117,6 +114,7 @@ class MusicalScale:
     def generate_scale(self, scale_interval):
         interval_list = self.scale_intervals.get(scale_interval)
         interval_list = self.letter2num(interval_list)
+        interval_list.pop()
 
         node = self.scale.head
         new_notes = [node.data]
@@ -130,8 +128,7 @@ class MusicalScale:
         new_nodes = CircularDoublyLinkedList(new_notes, self.starting_note)
 
         if scale_interval == "relative minor":
-            relative_minor = new_nodes.head.prev.prev.prev
-            relative_minor.data = relative_minor.data + "m"
+            relative_minor = new_nodes.head.prev.prev
 
             return relative_minor
         else:
@@ -153,5 +150,24 @@ class MusicalScale:
 
             new_notes.append(node.data)
 
-        new_nodes = CircularDoublyLinkedList(new_notes, self.starting_note)
+        new_nodes = CircularDoublyLinkedList(new_notes, scale.head.data)
+
+        if chord_interval == "diatonic":
+            if scale_interval == "major":
+                major_chords = ["", "m", "m", "", "", "m", "o"]
+                node = new_nodes.head
+
+                for suffix in major_chords:
+                    node.data = node.data + suffix
+                    node = node.next
+
+            elif scale_interval == "minor":
+                minor_chords = ["m", "o", "", "m", "m", "", ""]
+
+                node = new_nodes.head
+
+                for suffix in minor_chords:
+                    node.data = node.data + suffix
+                    node = node.next
+
         return new_nodes
